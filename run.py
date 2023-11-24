@@ -8,6 +8,17 @@ def parse_arguments() -> argparse.Namespace:
     args = parser.parse_args()
     return args
 
+def blur_boxes(frame, boxes):
+    for box in boxes:
+        xmin, ymin, xmax, ymax = box
+        # Extract the region inside the bounding box
+        roi = frame[int(ymin):int(ymax), int(xmin):int(xmax)]
+        # Apply Gaussian blur to the region
+        blurred_roi = cv2.GaussianBlur(roi, (51, 51), 0)
+        # Replace the original region with the blurred one
+        frame[int(ymin):int(ymax), int(xmin):int(xmax)] = blurred_roi
+    return frame
+
 def main():
     args = parse_arguments()
     frame_width, frame_height = args.webcam_resolution
@@ -28,11 +39,10 @@ def main():
         for result in results:
             # Accessing bounding box information using the 'boxes' attribute
             if result.boxes is not None:
-                for box in result.boxes.xyxy:
-                    xmin, ymin, xmax, ymax = box
-                    cv2.rectangle(frame, (int(xmin), int(ymin)), (int(xmax), int(ymax)), (0, 255, 0), 2)
+                # Call the blur_boxes function to apply Gaussian blur to the regions inside the bounding boxes
+                frame = blur_boxes(frame, result.boxes.xyxy)
 
-        # Display the frame with bounding boxes
+        # Display the frame with bounding boxes and blurred regions
         cv2.imshow("Object Detection", frame)
 
         # Check for the 'Esc' key to exit
@@ -42,5 +52,5 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
 
-if __name__== "__main__":
+if __name__ == "__main__":
     main()
