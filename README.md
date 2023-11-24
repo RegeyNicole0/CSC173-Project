@@ -3,5 +3,14 @@
 
  PLEASE USE VIRTUAL ENVIRONMENT!!
 
-FOR YOLO:
-pip install ultralytics
+## Local Setup 
+
+1. Clone the repository.
+2. Setup virtual environment and activate.
+2. Install local requirements,
+    **pip install -r requirements.txt**
+5. Run main script,
+    **py run.py**
+
+## Quit Execution
+1. Press 'esc' key.

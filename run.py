@@ -43,7 +43,7 @@ def main():
                 frame = blur_boxes(frame, result.boxes.xyxy)
 
         # Display the frame with bounding boxes and blurred regions
-        cv2.imshow("Object Detection", frame)
+        cv2.imshow("Object Detector", frame)
 
         # Check for the 'Esc' key to exit
         if (cv2.waitKey(30) == 27):
