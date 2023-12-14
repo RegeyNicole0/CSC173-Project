@@ -30,11 +30,13 @@ def main():
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
 
-    model = YOLO("model_training/train/weights/best.pt")
+    model = YOLO("model_training/train2/weights/best.pt")
 
     # Define the codec and create a VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
+    # Define the codec and create a VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc('X','V','I','D')  # Change the codec here
     out = cv2.VideoWriter(args.output_path, fourcc, 20.0, (frame_width, frame_height), isColor=True)
+
 
     while True:
         ret, frame = cap.read()
